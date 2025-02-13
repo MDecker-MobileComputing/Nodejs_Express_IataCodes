@@ -1,9 +1,13 @@
 import logging from "logging";
 
+import datenbank from "./datenbank.js";
+
 const logger = logging.default( "controller" );
 
 const API_PREFIX = "/api/v1";
 const ENTITY_TYP = "fluglinie";
+
+
 
 
 /**
@@ -19,16 +23,42 @@ export default function routenRegistrieren( app ) {
     const routeCollection = `${prefixFuerRouten}/`;
 
     app.get( routeRessource, getResource );
-    logger.info(`Route registriert: GET ${routeRessource}`);
+    logger.info( `Route registriert: GET ${routeRessource}` );
 
     app.get( routeCollection, getCollection );
-    logger.info(`Route registriert: GET ${routeCollection}`);
+    logger.info( `Route registriert: GET ${routeCollection}` );
 }
 
 
-function getResource(req, res) {
+function getResource( req, res ) {
+
+    let iataCode = req.params.iataCode;
+    iataCode = iataCode.toUpperCase();
+
+    const ergebnisObjekt = datenbank.readFluglinie( iataCode )
+    if ( ergebnisObjekt ) {
+
+        logger.info( `Fluglinie mit IATA-Code "${iataCode}" gefunden.` );
+        res.status( 200 );
+        res.json( ergebnisObjekt );
+
+    } else {
+
+        logger.info( `Keine Fluglinie mit IATA-Code "${iataCode}" gefunden.` );
+        res.status( 404 );
+        res.json( {} );
+    }
 }
 
 
-function getCollection(req, res) {
+function getCollection( req, res ) {
+
+    const ergebnisArray = datenbank.searchFluglinie();
+
+    const anzahl = ergebnisArray.length
+
+    logger.info( `Anzahl Fluglinien: ${anzahl}` );
+    res.setHeader( "X-ANZAHL", anzahl);
+    res.status( 200 );
+    res.json( ergebnisArray );
 }

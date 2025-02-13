@@ -7,14 +7,17 @@ export class Fluglinie {
     /**
      * Konstruktor, um eine neue Fluglinie zu erstellen.
      *
-     * @param {*} name Name der Fluglinie, z.B. "Lufthansa"
+     * @param {string} IATA-Code einer Fluglinie, z.B. "LH"
      *
-     * @param {*} land Heimatland der Fluglinie, z.B. "Deutschland"
+     * @param {string} name Name der Fluglinie, z.B. "Lufthansa"
+     *
+     * @param {string} land Heimatland der Fluglinie, z.B. "Deutschland"
      */
-    constructor( name, land ) {
+    constructor( iataCode, name, land ) {
 
-        this.name = name;
-        this.land = land;
+        this.iataCode = iataCode;
+        this.name     = name;
+        this.land     = land;
     }
 
 }

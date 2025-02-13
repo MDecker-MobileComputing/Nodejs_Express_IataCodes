@@ -10,7 +10,7 @@ werden können.
 
 | Beschreibung             | **URL-Pfad**                  | `GET` | `POST` | `PUT` | `PATCH` | `DELETE` |
 | -----------------------  | ----------------------------- | ----- | ------ | ----- | ------- | -------- |
-| Ressource  "Fluglinie"   | `/api/v1/fluglinie/:iataCode` | X     |        |       |         |          |
+| Ressource  "Fluglinie"   | `/api/v1/fluglinie/:iataCode` | X     |        | X     | X       | X        |
 | Collection "Fluglinie"   | `/api/v1/fluglinie`           | X     | X      |       |         |          |
 | Ressource  "Flughafen"   | ...                           |       |        |       |         |          |
 
