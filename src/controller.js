@@ -53,12 +53,14 @@ function getResource( req, res ) {
 
 function getCollection( req, res ) {
 
-    const ergebnisArray = datenbank.searchFluglinie();
+    const suchString = req.query.q;
+
+    const ergebnisArray = datenbank.searchFluglinie( suchString );
 
     const anzahl = ergebnisArray.length
 
     logger.info( `Anzahl Fluglinien: ${anzahl}` );
-    res.setHeader( "X-ANZAHL", anzahl);
+    res.setHeader( "X-ANZAHL", anzahl );
     res.status( 200 );
     res.json( ergebnisArray );
 }

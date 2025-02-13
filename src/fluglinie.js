@@ -20,4 +20,20 @@ export class Fluglinie {
         this.land     = land;
     }
 
+
+    /**
+     * Volltextsuche in Datensatz.
+     *
+     * @param {string} suchstring
+     *
+     * @returns {boolean} `true`gdw. `suchstring` im Namen oder Land der Fluglinie enthalten ist
+     */
+    enthaelt( suchstring ) {
+
+        const suchstringNormalisiert = suchstring.toLowerCase().trim();
+
+        return this.name.toLowerCase().includes( suchstringNormalisiert ) ||
+               this.land.toLowerCase().includes( suchstringNormalisiert );
+    }
+
 }

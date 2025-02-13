@@ -20,7 +20,8 @@ const fluglinienObjekt = {
 logger.info( `Anzahl der Datensätze: ${Object.keys( fluglinienObjekt ).length}` );
 
 
-// Methoden für CRUDS-Operationen
+// Methoden für CRUDS-Operationen: Create, Read, Update, Delete, Search
+
 
 export function readFluglinie( iataCode ) {
 
@@ -28,9 +29,19 @@ export function readFluglinie( iataCode ) {
     return fluglinie;
 }
 
+
 export function searchFluglinie( suchString ) {
 
-    return  Object.values( fluglinienObjekt );
+    const fluglinienArray = Object.values( fluglinienObjekt );
+
+    if ( suchString ) {
+
+        return fluglinienArray.filter( fluglinie => fluglinie.enthaelt( suchString ) );
+
+    } else {
+
+        return fluglinienArray;
+    }
 }
 
 
