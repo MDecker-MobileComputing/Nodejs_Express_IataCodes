@@ -17,7 +17,8 @@ const fluglinienObjekt = {
     "LO": new Fluglinie( "LO", "LOT Polish Airlines", "Polen"       )
 };
 
-logger.info( `Anzahl der Datensätze: ${Object.keys( fluglinienObjekt ).length}` );
+const anzahl = Object.keys( fluglinienObjekt ).length;
+logger.info( `Anzahl der Datensätze beim Programmstart: ${anzahl}` );
 
 
 // Methoden für CRUDS-Operationen: Create, Read, Update, Delete, Search
