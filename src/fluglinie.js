@@ -41,9 +41,12 @@ export class Fluglinie {
      * Gibt eine String-Repräsentation des Fluglinie-Objekts zurück.
      *
      * @returns {string} String-Repräsentation des Fluglinie-Objekts
+     *          Beispiel:
+     *          `Fluglinie { IATA-Code: KL, Name: KLM Royal Dutch Airlines, Land: Niederlande }`
      */
     toString() {
 
         return `Fluglinie { IATA-Code: ${this.iataCode}, Name: ${this.name}, Land: ${this.land} }`;
     }
+
 }

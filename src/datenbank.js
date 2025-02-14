@@ -23,6 +23,14 @@ logger.info( `Anzahl der Datensätze: ${Object.keys( fluglinienObjekt ).length}`
 // Methoden für CRUDS-Operationen: Create, Read, Update, Delete, Search
 
 
+/**
+ * Fluglinie für gegebenen IATA-Code auslesen.
+ *
+ * @param {string} iataCode IATA-Code der Fluglinie
+ *
+ * @return {Fluglinie|undefined} Fluglinie-Objekt, wenn Fluglinie gefunden wurde,
+ *                               ansonsten `undefined`.
+ */
 function readFluglinie( iataCode ) {
 
     const fluglinie = fluglinienObjekt[ iataCode.toUpperCase() ];
@@ -30,6 +38,13 @@ function readFluglinie( iataCode ) {
 }
 
 
+/**
+ * Suche nach Fluglinien anhand eines Suchstrings.
+ *
+ * @param {string} suchString String, der in Name oder Land der Fluglinie enthalten sein soll
+ *
+ * @returns {Fluglinie[]} Array mit Fluglinien, die den Suchstring enthalten, ansonsten leeres Array
+ */
 function searchFluglinie( suchString ) {
 
     const fluglinienArray = Object.values( fluglinienObjekt );
@@ -45,9 +60,25 @@ function searchFluglinie( suchString ) {
 }
 
 
+/**
+ * Neue Fluglinie anlegen.
+ *
+ * @param {Fluglinie} fluglinie Neu anzulegende Fluglinie
+ *
+ * @returns {boolean} `true` wenn Fluglinie erfolgreich angelegt wurde,
+ *                    `false` wenn Fluglinie bereits existiert.
+ */
 function createFluglinie( fluglinie ) {
 
+    const schonDa = readFluglinie( fluglinie.iataCode );
+    if ( schonDa ) {
+
+        logger.info( `Fluglinie mit IATA-Code "${fluglinie.iataCode}" existiert bereits: ${schonDa}` );
+        return false;
+    }
+
     fluglinienObjekt[ fluglinie.iataCode ] = fluglinie;
+    return true;
 }
 
 

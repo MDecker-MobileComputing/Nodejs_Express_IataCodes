@@ -6,7 +6,6 @@ import routenRegistrieren from './controller.js';
 
 const PORT_NUMMER = 8080;
 
-
 const logger = logging.default( "main" );
 
 const app = express();

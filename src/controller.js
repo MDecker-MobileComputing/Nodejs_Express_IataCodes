@@ -69,7 +69,7 @@ function getCollection( req, res ) {
 
 function postCollection( req, res ) {
 
-    const { iataCode, name, land } = req.body;
+    let { iataCode, name, land } = req.body;
 
     if ( !iataCode || !name || !land ) {
 
@@ -79,11 +79,26 @@ function postCollection( req, res ) {
 
     } else {
 
-        const neueFluglinie = new Fluglinie( iataCode, name, land );
-        datenbank.createFluglinie(neueFluglinie);
-        logger.info( `Neue Flugline angelegt: ${neueFluglinie}` );
-        res.status( 201 )
-           .json({ nachricht: "Neue Fluglinie angelegt" });
+        iataCode = iataCode.trim().toUpperCase();
+        name     = name.trim();
+        land     = land.trim();
 
+        const neueFluglinie = new Fluglinie( iataCode, name, land );
+
+        const erfolg = datenbank.createFluglinie( neueFluglinie );
+
+        if ( erfolg ) {
+
+            logger.info( `Neue Flugline angelegt: ${neueFluglinie}` );
+            res.status( 201 )
+               .json({ nachricht: "Neue Fluglinie angelegt" });
+
+        } else {
+
+            const nachricht = `Versuch Fluglinie für bereits vorhandenen IATA-Code "${iataCode}" anzulegen.`;
+            logger.warn( nachricht );
+            res.status( 409 ) // Conflict
+               .json({ nachricht: nachricht });
+        }
     }
 }
