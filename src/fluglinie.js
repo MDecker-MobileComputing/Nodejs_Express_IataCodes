@@ -26,7 +26,7 @@ export class Fluglinie {
      *
      * @param {string} suchstring
      *
-     * @returns {boolean} `true`gdw. `suchstring` im Namen oder Land der Fluglinie enthalten ist
+     * @returns {boolean} `true` gdw. `suchstring` im Namen oder Land der Fluglinie enthalten ist
      */
     enthaelt( suchstring ) {
 
@@ -36,4 +36,14 @@ export class Fluglinie {
                this.land.toLowerCase().includes( suchstringNormalisiert );
     }
 
+
+    /**
+     * Gibt eine String-Repräsentation des Fluglinie-Objekts zurück.
+     *
+     * @returns {string} String-Repräsentation des Fluglinie-Objekts
+     */
+    toString() {
+
+        return `Fluglinie { IATA-Code: ${this.iataCode}, Name: ${this.name}, Land: ${this.land} }`;
+    }
 }

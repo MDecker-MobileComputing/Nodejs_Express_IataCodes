@@ -23,14 +23,14 @@ logger.info( `Anzahl der Datensätze: ${Object.keys( fluglinienObjekt ).length}`
 // Methoden für CRUDS-Operationen: Create, Read, Update, Delete, Search
 
 
-export function readFluglinie( iataCode ) {
+function readFluglinie( iataCode ) {
 
     const fluglinie = fluglinienObjekt[ iataCode.toUpperCase() ];
     return fluglinie;
 }
 
 
-export function searchFluglinie( suchString ) {
+function searchFluglinie( suchString ) {
 
     const fluglinienArray = Object.values( fluglinienObjekt );
 
@@ -45,11 +45,19 @@ export function searchFluglinie( suchString ) {
 }
 
 
+function createFluglinie( fluglinie ) {
+
+    fluglinienObjekt[ fluglinie.iataCode ] = fluglinie;
+}
+
+
 /**
  * Alle Funktionen als Default-Objekt exportieren.
  */
 export default {
 
     readFluglinie,
-    searchFluglinie
+    searchFluglinie,
+
+    createFluglinie
 };

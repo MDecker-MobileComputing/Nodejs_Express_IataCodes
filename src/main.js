@@ -11,7 +11,7 @@ const logger = logging.default( "main" );
 
 const app = express();
 
-
+app.use( express.json() );
 app.use( express.static( "public" ) );
 
 routenRegistrieren( app );

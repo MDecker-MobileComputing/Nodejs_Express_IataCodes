@@ -1,13 +1,11 @@
-import logging from "logging";
-
+import logging   from "logging";
 import datenbank from "./datenbank.js";
+import { Fluglinie } from './fluglinie.js';
 
 const logger = logging.default( "controller" );
 
 const API_PREFIX = "/api/v1";
 const ENTITY_TYP = "fluglinie";
-
-
 
 
 /**
@@ -27,6 +25,9 @@ export default function routenRegistrieren( app ) {
 
     app.get( routeCollection, getCollection );
     logger.info( `Route registriert: GET ${routeCollection}` );
+
+    app.post( routeCollection, postCollection );
+    logger.info( `Route registriert: POST ${routeCollection}` );
 }
 
 
@@ -63,4 +64,26 @@ function getCollection( req, res ) {
     res.setHeader( "X-ANZAHL", anzahl );
     res.status( 200 );
     res.json( ergebnisArray );
+}
+
+
+function postCollection( req, res ) {
+
+    const { iataCode, name, land } = req.body;
+
+    if ( !iataCode || !name || !land ) {
+
+        logger.warn( "Versuch, Fluglinie mit unvollständigen Attribute anzulegen." );
+        res.status( 400 )
+           .json({ nachricht: "Nicht alle Attribute gesetzt." });
+
+    } else {
+
+        const neueFluglinie = new Fluglinie( iataCode, name, land );
+        datenbank.createFluglinie(neueFluglinie);
+        logger.info( `Neue Flugline angelegt: ${neueFluglinie}` );
+        res.status( 201 )
+           .json({ nachricht: "Neue Fluglinie angelegt" });
+
+    }
 }
