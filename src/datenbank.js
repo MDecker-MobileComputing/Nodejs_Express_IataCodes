@@ -7,6 +7,7 @@ const logger = logging.default( "datenbank" );
 
 /**
  * IATA-Code der Airline wird auf Objekt mit Daten zur Airline abgebildet.
+ * Einige Datensätze sind bereits vorhanden.
  */
 const fluglinienObjekt = {
 
@@ -32,8 +33,15 @@ logger.info( `Anzahl der Datensätze: ${Object.keys( fluglinienObjekt ).length}`
  */
 function readFluglinie( iataCode ) {
 
-    const fluglinie = fluglinienObjekt[ iataCode.toUpperCase() ];
-    return fluglinie;
+    const ergebnis = fluglinienObjekt[ iataCode.toUpperCase() ];
+    if ( ergebnis ) {
+
+        return ergebnis.clone();
+
+    } else {
+
+        return null;
+    }
 }
 
 
@@ -76,7 +84,7 @@ function createFluglinie( fluglinie ) {
         return false;
     }
 
-    fluglinienObjekt[ fluglinie.iataCode ] = fluglinie;
+    fluglinienObjekt[ fluglinie.iataCode ] = fluglinie.clone();
     return true;
 }
 
@@ -115,11 +123,13 @@ function deleteFluglinie( iataCode ) {
  */
 function updateFluglinie( fluglinie ) {
 
-    const altesObjekt = readFluglinie( fluglinie.iataCode );
-    if ( altesObjekt ) {
+    const objekt = readFluglinie( fluglinie.iataCode );
+    if ( objekt ) {
 
-        altesObjekt.name = fluglinie.name;
-        altesObjekt.land = fluglinie.land;
+        objekt.name = fluglinie.name;
+        objekt.land = fluglinie.land;
+
+        fluglinienObjekt[ fluglinie.iataCode ] = objekt;
 
         return true;
 

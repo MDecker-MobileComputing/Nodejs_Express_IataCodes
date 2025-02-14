@@ -50,4 +50,16 @@ export class Fluglinie {
         return `Fluglinie { IATA-Code: ${this.iataCode}, Name: ${this.name}, Land: ${this.land} }`;
     }
 
+
+    /**
+     * Erstellt eine Kopie des aktuellen Fluglinie-Objekts.
+     *
+     * @returns {Fluglinie} Eine neue Instanz der Fluglinie-Klasse mit
+     *                      den gleichen Attributen wie das aufrufende
+     *                      Objekt.
+     */
+    clone() {
+
+        return new Fluglinie(this.iataCode, this.name, this.land);
+    }
 }
