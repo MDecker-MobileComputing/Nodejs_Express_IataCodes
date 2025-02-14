@@ -22,6 +22,17 @@ Die Operation `GET` auf den Collections beinhaltet auch die Volltextsuche mit UR
 
 <br>
 
+Beispiel für eine Entity im JSON-Format:
+```
+{
+    "iataCode": "LH",
+    "name"    : "Lufthansa",
+    "land"    : "Deutschland"
+}
+```
+
+<br>
+
 ----
 
 ## License ##
