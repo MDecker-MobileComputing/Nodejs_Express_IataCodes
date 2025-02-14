@@ -1,6 +1,5 @@
 
-import logging from "logging";
-
+import logging       from "logging";
 import { Fluglinie } from './fluglinie.js';
 
 const logger = logging.default( "datenbank" );
@@ -83,12 +82,38 @@ function createFluglinie( fluglinie ) {
 
 
 /**
+ * Fluglinie für bestimmten IATA-Code löschen.
+ *
+ * @param {string} iataCode IATA-Code der Fluglinie
+ *
+ * @return {boolean} `true` wenn Fluglinie erfolgreich gelöscht wurde,
+ *                   `false` wenn Fluglinie nicht existiert.
+ */
+function deleteFluglinie( iataCode ) {
+
+    const istDa = readFluglinie( iataCode );
+    if ( istDa ) {
+
+        delete fluglinienObjekt[ iataCode ];
+        return true;
+
+    } else {
+
+        return false;
+    }
+}
+
+
+/**
  * Alle Funktionen als Default-Objekt exportieren.
  */
 export default {
 
+    // Lese-Operationen
     readFluglinie,
     searchFluglinie,
 
-    createFluglinie
+    // Schreib-Operationen
+    createFluglinie,
+    deleteFluglinie
 };

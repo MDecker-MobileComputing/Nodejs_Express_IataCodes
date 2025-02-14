@@ -26,7 +26,8 @@ export class Fluglinie {
      *
      * @param {string} suchstring
      *
-     * @returns {boolean} `true` gdw. `suchstring` im Namen oder Land der Fluglinie enthalten ist
+     * @returns {boolean} `true` gdw. `suchstring` im Namen oder Land der Fluglinie
+     *                    enthalten ist
      */
     enthaelt( suchstring ) {
 

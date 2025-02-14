@@ -1,6 +1,5 @@
-import express from "express";
-import logging from "logging";
-
+import express            from "express";
+import logging            from "logging";
 import routenRegistrieren from './controller.js';
 
 
