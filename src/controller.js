@@ -96,9 +96,11 @@ function postCollection( req, res ) {
 
     if ( !iataCode || !name || !land ) {
 
-        logger.warn( "Versuch, Fluglinie mit unvollständigen Attribute anzulegen." );
+        const nachricht = "Versuch, Fluglinie mit unvollständigen Attribute anzulegen.";
+        logger.warn( nachricht );
+
         res.status( 400 )
-           .json({ nachricht: "Nicht alle Attribute gesetzt." });
+           .json({ nachricht: nachricht });
 
     } else {
 
@@ -114,7 +116,7 @@ function postCollection( req, res ) {
             const nachricht = `Neue Fluglinie angelegt: ${neueFluglinie}`;
             logger.info( nachricht );
 
-            res.status( 201 )
+            res.status( 201 ) // Created
                .json({ nachricht: nachricht });
 
         } else {
@@ -160,6 +162,8 @@ function patchResource( req, res ) {
                .json({ nachricht : nachricht });
         }
 
+        datenbank.updateFluglinie( ergebnisObjekt );
+
         const nachricht = `Entity mit IATA-Code "${iataCode}" geändert.`;
         logger.info( nachricht );
         ergebnisObjekt.nachricht = nachricht;
@@ -173,7 +177,7 @@ function patchResource( req, res ) {
         logger.warn( nachricht );
 
         res.status( 404 )
-           .json( { nachricht: nachricht } );
+           .json({ nachricht: nachricht });
     }
 }
 
@@ -186,6 +190,40 @@ function putResource( req, res ) {
     let iataCode = req.params.iataCode;
     iataCode = iataCode.toUpperCase();
 
+    const ergebnisObjekt = datenbank.readFluglinie( iataCode );
+    if ( ergebnisObjekt ) {
+
+        let { name, land } = req.body;
+
+        if ( !name || !land ) {
+
+            const nachricht = "Versuch, Fluglinie mit unvollständigen Attribute zu ersetzen.";
+            logger.warn( nachricht );
+
+            res.status( 400 )
+               .json({ nachricht: nachricht });
+        }
+
+        ergebnisObjekt.name = name.trim();
+        ergebnisObjekt.land = land.trim();
+
+        datenbank.updateFluglinie( ergebnisObjekt );
+
+        const nachricht = `Entity mit IATA-Code "${iataCode}" ersetzt.`;
+        ergebnisObjekt.nachricht = nachricht;
+
+        logger.info( nachricht );
+        res.status( 200 )
+           .json( ergebnisObjekt );
+
+    } else {
+
+        const nachricht = `Keine Fluglinie mit IATA-Code "${iataCode}" zum Ersetzen gefunden.`
+        logger.warn( nachricht );
+
+        res.status( 404 )
+           .json({ nachricht: nachricht });
+    }
 }
 
 

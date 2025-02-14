@@ -105,6 +105,32 @@ function deleteFluglinie( iataCode ) {
 
 
 /**
+ * Fluglinie für bestimmten IATA-Code ersetzen.
+ *
+ * @param {Fluglinie} Fluglinien-Objekt mit neuen Daten
+ *                    (alle Attribute inkl. IATA-Code müssen gesetzt sein).
+ *
+ * @return {boolean} `true` wenn Fluglinie ersetzt werden konnte,
+ *                   `false` wenn Fluglinie nicht existiert.
+ */
+function updateFluglinie( fluglinie ) {
+
+    const altesObjekt = readFluglinie( fluglinie.iataCode );
+    if ( altesObjekt ) {
+
+        altesObjekt.name = fluglinie.name;
+        altesObjekt.land = fluglinie.land;
+
+        return true;
+
+    } else {
+
+        return false;
+    }
+}
+
+
+/**
  * Alle Funktionen als Default-Objekt exportieren.
  */
 export default {
@@ -115,5 +141,6 @@ export default {
 
     // Schreib-Operationen
     createFluglinie,
-    deleteFluglinie
+    deleteFluglinie,
+    updateFluglinie
 };
