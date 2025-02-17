@@ -12,7 +12,8 @@ werden können.
 | -----------------------  | ----------------------------- | ----- | ------ | ----- | ------- | -------- |
 | Ressource  "Fluglinie"   | `/api/v1/fluglinie/:iataCode` | X     |        | X     | X       | X        |
 | Collection "Fluglinie"   | `/api/v1/fluglinie`           | X     | X      |       |         |          |
-| Ressource  "Flughafen"   | ...                           |       |        |       |         |          |
+| Ressource  "Flughafen"   | `/api/v1/flughafen/:iataCode` | X     |        | X     | X       | X        |
+| Collection "Flughafen"   | `/api/v1/flughafen`           | X     | X      |       |         |          |
 
 <br>
 
