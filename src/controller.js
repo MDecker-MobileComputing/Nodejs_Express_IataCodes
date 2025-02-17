@@ -79,7 +79,7 @@ function getCollection( req, res ) {
     const ergebnisArray = datenbank.searchFluglinie( suchString );
 
     const anzahl = ergebnisArray.length
-    logger.info( `Alle Datensätze der Collection zurückgeliefert: ${anzahl}` );
+    logger.info( `Datensätze aus Collection zurückgeliefert: ${anzahl}` );
 
     res.setHeader( "X-ANZAHL", anzahl )
        .status( 200 )
