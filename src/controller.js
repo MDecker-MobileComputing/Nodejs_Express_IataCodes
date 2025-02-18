@@ -49,6 +49,7 @@ function getResource( req, res ) {
     iataCode = iataCode.toUpperCase();
 
     const ergebnisObjekt = datenbank.readFluglinie( iataCode );
+
     if ( ergebnisObjekt ) {
 
         const nachricht = `Fluglinie mit IATA-Code "${iataCode}" gefunden.`;
@@ -204,19 +205,21 @@ function putResource( req, res ) {
 
             res.status( 400 )
                .json({ nachricht: nachricht });
+
+        } else {
+
+            ergebnisObjekt.name = name.trim();
+            ergebnisObjekt.land = land.trim();
+
+            datenbank.updateFluglinie( ergebnisObjekt );
+
+            const nachricht = `Entity mit IATA-Code "${iataCode}" ersetzt.`;
+            ergebnisObjekt.nachricht = nachricht;
+
+            logger.info( nachricht );
+            res.status( 200 )
+               .json( ergebnisObjekt );
         }
-
-        ergebnisObjekt.name = name.trim();
-        ergebnisObjekt.land = land.trim();
-
-        datenbank.updateFluglinie( ergebnisObjekt );
-
-        const nachricht = `Entity mit IATA-Code "${iataCode}" ersetzt.`;
-        ergebnisObjekt.nachricht = nachricht;
-
-        logger.info( nachricht );
-        res.status( 200 )
-           .json( ergebnisObjekt );
 
     } else {
 
