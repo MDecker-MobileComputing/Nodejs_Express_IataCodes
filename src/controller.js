@@ -48,7 +48,7 @@ function getResource( req, res ) {
     let iataCode = req.params.iataCode;
     iataCode = iataCode.toUpperCase();
 
-    const ergebnisObjekt = datenbank.readFluglinie( iataCode )
+    const ergebnisObjekt = datenbank.readFluglinie( iataCode );
     if ( ergebnisObjekt ) {
 
         const nachricht = `Fluglinie mit IATA-Code "${iataCode}" gefunden.`;
