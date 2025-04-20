@@ -1,6 +1,6 @@
 import logging       from "logging";
 import datenbank     from "./datenbank.js";
-import { Fluglinie } from './fluglinie.js';
+import { Fluglinie } from "./fluglinie.js";
 
 const logger = logging.default( "controller" );
 
