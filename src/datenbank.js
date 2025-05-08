@@ -5,6 +5,7 @@ import { Fluglinie } from './fluglinie.js';
 const logger = logging.default( "datenbank" );
 
 
+
 /**
  * IATA-Code der Airline wird auf Objekt mit Daten zur Airline abgebildet.
  * Einige Datensätze sind bereits vorhanden.
